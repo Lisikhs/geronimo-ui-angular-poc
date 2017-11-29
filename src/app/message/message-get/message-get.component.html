@@ -1,0 +1,61 @@
+<section class="main">
+  <div class="col-md-3">
+    <app-user-card></app-user-card>
+  </div>
+  <div class="col-md-7">
+    <table id="messages" class="table white-table">
+      <tbody>
+      <tr *ngFor="let message of messages" class="{{message.id != mainMessageId ? 'clickable-table-row' : ''}}">
+        <td *ngIf="message.id == mainMessageId">
+          <div class="main-message">
+            <div class="user-name">
+              <a routerLink="/user/{{message.author.id}}" routerLinkActive="active">
+                <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span></a>
+              <span>
+                {{message.author.username}}
+              </span>
+            </div>
+            <div class="text-of-message">
+              {{message.text}}
+            </div>
+          </div>
+
+          <div style="margin-top: 10px; margin-bottom: 10px; float:right">
+            <div>
+              <button class="btn btn-sm" style="margin-right: 10px" (click)="like(message);" ngClass="{{isLiked ? 'btn-danger' : 'btn-success'}}">{{isLiked ? 'Dislike' : 'Like'}} | {{message.countOfLikes}}</button>
+              <button *ngIf="message.author.id != user.id" class="btn btn-sm" (click)="reblog(message)" ngClass="{{isReblogged ? 'btn-danger' : 'btn-primary'}}">{{isReblogged ? 'Un-reblog' : 'Reblog'}} | {{message.countOfReblogs}}</button>
+            </div>
+          </div>
+
+          <div>
+            <form novalidate [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+              <div class="form-group" style="margin-bottom: 5px;">
+                <input type="text" class="form-control" placeholder="Write a reply..."
+                       formControlName="answerToMessage">
+                <button type="submit" [disabled]="!messageForm.valid" style="margin-top: 5px; font-size:16px;"
+                        class="btn btn-default">Answer
+                </button>
+              </div>
+            </form>
+          </div>
+        </td>
+        <td *ngIf="message.id != mainMessageId" class="message" (click)="showMessage(message);">
+          <strong>{{message.author.username}}</strong><br>{{message.text}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2">
+    <app-side-bar></app-side-bar>
+  </div>
+</section>
+
+
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+

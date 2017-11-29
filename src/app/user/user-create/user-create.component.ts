@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../user';
 import {UserService} from '../user.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {isUndefined} from 'util';
+import {isNullOrUndefined, isUndefined} from 'util';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Profile} from '../profile';
 
 @Component({
   selector: 'app-user-create',
@@ -11,58 +13,56 @@ import {isUndefined} from 'util';
   providers: [UserService]
 })
 export class UserCreateComponent implements OnInit {
+  title: String = 'Create user';
 
-  user: User;
-  protected id;
+  userForm: FormGroup;
+  validationMessage: string;
 
-  constructor(private router: ActivatedRoute,
-              private routerForNavigation: Router,
+  constructor(private route: ActivatedRoute,
+              private router: Router,
               private userService: UserService) {
   }
 
   ngOnInit() {
-    this.getParams();
-
-    if (!isNaN(this.id)) {
-      this.getUserById();
-    } else {
-      this.user = new User(0, '', '');
+    // if logged user visits /create url, he needs to be notified that he first needs to log out, right?
+    if (!isNullOrUndefined(localStorage.getItem('sessionUser'))) {
+      this.router.navigate(['/home']);
     }
-  }
 
-  private getParams() {
-    this.router.params.subscribe(params => {
-      this.id = +params['id'];
+    this.userForm = new FormGroup({
+      username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]),
+      password: new FormControl('', [Validators.required,  Validators.minLength(3), Validators.maxLength(15)])
     });
   }
 
-  private getUserById() {
-    this.userService.findById(this.id).subscribe(
-      user => {
-        this.user = user;
-      },
-      err => {
-        console.log(err);
+  onSubmit() {
+    if (this.userForm.valid) {
+      const user: User = new User(null,
+        this.userForm.controls['username'].value,
+        this.userForm.controls['password'].value,
+        new Profile(null, null, null));
+      this.save(user);
+    }
+  }
+
+  redirectToLoginPage() {
+    const status = true;
+    this.router.navigate(['/user/login'], { queryParams: { registered: true } });
+  }
+
+  private save(user: User) {
+    this.userService.saveUser(user).subscribe(
+      res => {
+        if (res === true) {
+          this.redirectToLoginPage();
+        } else {
+          this.validationMessage = 'Username has already been taken';
+        }
       }
     );
   }
 
-  onSubmit() {
-    if (isNaN(this.id)) {
-      this.save();
-    } else {
-      this.update();
-    }
-    this.routerForNavigation.navigate(['/user']);
+  private update(user: User) {
+    this.userService.updateUser(user).subscribe();
   }
-
-  private save() {
-    this.userService.saveUser(this.user).subscribe();
-  }
-
-  private update() {
-    this.userService.updateUser(this.user).subscribe();
-  }
-
-
 }

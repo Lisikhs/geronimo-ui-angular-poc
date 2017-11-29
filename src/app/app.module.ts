@@ -6,19 +6,20 @@ import {AppRoutingModule} from './app-routing.module';
 import {UserModule} from './user/user.module';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
-import {UserCreateComponent} from './user/user-create/user-create.component';
+import {MessageModule} from './message/message.module';
+import {ComponentsModule} from './special-components/components.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserCreateComponent
-  ],
+    AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     UserModule,
+    MessageModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

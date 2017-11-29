@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section class="main">
+        <div class="col-md-7">
+          <div id="text" class="d-inline">
+            <h1>Welcome</h1>
+            <h3>to Geronimo social network</h3>
+            <div style="margin-top: 50px">
+              <p>Share your thoughts and make new acquaintances!</p>
+              <p>Join now!</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 login-form">
+          <div class="alert alert-success" *ngIf="registrationMessage" innerHTML="{{registrationMessage}}">
+          </div>
+          <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+            <fieldset>
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <label for="username">Username</label>
+                <input id="username" name='username' type="text"
+                       class="form-control" [(ngModel)]="user.username" #username="ngModel" required>
+                <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+              </div>
+
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password"
+                       class="form-control" [(ngModel)]="user.password" #password="ngModel" required>
+                <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+              </div>
+            </fieldset>
+            <div class="form-group">
+              <button [disabled]="loading" class="btn btn-primary">Login</button>
+              <img *ngIf="loading"
+                   src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+              <a [routerLink]="['/user/create']" class="btn btn-link">Register</a>
+            </div>
+            <div class="alert alert-danger" *ngIf="alertMessage" innerHTML="{{alertMessage}}">
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
