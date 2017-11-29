@@ -1,0 +1,34 @@
+<div class="left-side-bar">
+  <div class="card">
+    <img src="https://www.w3schools.com/w3images/team2.jpg" alt="John" class="profile-picture">
+    <h2>{{_user?.username}}</h2>
+    <p class="card-title">{{_user?.profile.status ? _user?.profile.status : 'No status'}}</p>
+    <table align='center'>
+      <tr>
+        <td style="padding-right:15px">Posts</td>
+        <td style="padding-right:15px">Subscribed</td>
+        <td>Subscribers</td>
+      </tr>
+      <tr>
+        <td style="text-align: left">{{countOfPosts}}</td>
+        <td style="text-align: left">{{countOfFollowed}}</td>
+        <td style="text-align: left">{{countOfFollowers}}</td>
+      </tr>
+    </table>
+
+    <div style="margin: 24px 0;">
+
+    </div>
+    <span *ngIf="isSessionUser; else subscribeButton">
+      <button class="card-button" routerLink="/user/edit/{{_user?.id}}">Edit profile</button>
+    </span>
+    <ng-template #subscribeButton>
+      <span *ngIf="isSubscribed">
+        <button class="card-button unsubscribe-button" (click)="unsubscribe()">Unsubscribe</button>
+      </span>
+      <span *ngIf="!isSubscribed">
+        <button class="card-button" (click)="subscribe()">Subscribe</button>
+      </span>
+    </ng-template>
+  </div>
+</div>

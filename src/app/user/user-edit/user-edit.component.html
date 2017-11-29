@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <app-user-card></app-user-card>
+    </div>
+    <div class="col-md-7">
+      <section class="main">
+        <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <fieldset>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="username">
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="password">
+            </div>
+
+            <div class="form-group">
+              <label>Status</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="status">
+            </div>
+
+            <div class="form-group">
+              <label>Date of birth</label>
+              <input type="date"
+                     class="form-control"
+                     formControlName="dateOfBirth">
+            </div>
+
+            <div class="form-group">
+              <label>Picture</label>
+              <label class="btn btn-default btn-file">
+                Browse <input type="file" style="display: none;" formControlName="picture">
+              </label>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Submit</button>
+          <button style="margin-left: 10px;" type="button" class="btn btn-warning" (click)="redirectUserPage()">Cancel</button>
+          <pre>{{userForm.value | json}}</pre>
+        </form>
+      </section>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+

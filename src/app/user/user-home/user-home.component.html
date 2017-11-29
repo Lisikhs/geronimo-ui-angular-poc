@@ -1,0 +1,32 @@
+<section class="main">
+  <div class="col-md-3">
+    <app-user-card></app-user-card>
+  </div>
+
+  <div class="col-md-7">
+    <table id="messages" class="table table-hover white-table">
+      <tbody>
+      <tr class="no-row-hover">
+        <td>
+          <form (ngSubmit)="postMessage()" [formGroup]="messageForm">
+            <input class="form-control" type="text" formControlName="message" placeholder="Share your thoughts"
+                   style="margin-bottom: 10px">
+            <input class="form-control" type="submit" value="Tell everyone!" style="float:right; width:20%">
+          </form>
+        </td>
+      </tr>
+      <tr *ngFor="let message of feed" class="d-inline clickable-table-row" (click)="showMessage(message);">
+        <td class="message">
+          <div style="padding: 5px 0 15px 10px;"><strong>{{message.author.username}}</strong>
+            <br>{{message.text}}<br></div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-2">
+    <app-side-bar></app-side-bar>
+  </div>
+</section>
+

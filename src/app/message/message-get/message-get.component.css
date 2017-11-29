@@ -1,0 +1,18 @@
+.main-message {
+  font-size: 18px;
+}
+
+.main-message .user-name {
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.main-message .text-of-message {
+  margin-top: 10px;
+}
+
+.clickable-table-row:hover {
+  cursor:pointer;
+  background-color: rgba(209,202,196,0.16);
+}
+

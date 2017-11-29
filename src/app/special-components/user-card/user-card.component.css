@@ -1,0 +1,46 @@
+
+.card {
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: arial;
+}
+
+.card-title {
+  color: grey;
+  font-size: 18px;
+}
+
+.card-button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+
+.card-button:hover {
+  opacity: 0.7;
+}
+
+.unsubscribe-button {
+  background-color: #e30005;
+
+}
+
+.profile-picture {
+  width:100%;
+  max-width: 285px;
+}
+
+.left-side-bar {
+  padding-left: 0;
+  padding-right: 0;
+  height: auto;
+}
